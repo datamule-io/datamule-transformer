@@ -47,22 +47,26 @@ This is why `"type": "character"` from the template appears in the output.
 All arrays that have `"!!"` as their first item are executed as set of rules
 
 ## rules
-So Rules is an array of commands that are executed in-order while the output of one rule is chained to the next.
-* Each rule is an array of a method + arguments. 
-* If a rule has a method and no arguments, it can be simplified to just a string. E.g. `"length"` is the same as `["length"]`
+So Rules is an array of methods that are executed in-order while the output of one rule is chained as an input to the next rule.
+* Each rule is an array of a method-name + arguments. 
+* If a rule has a method-name but no arguments, it can be simplified to just a string. E.g. `"length"` is the same as `["length"]`
 * The `select` method that selects a field from the data by jsonpath can be shortened from `["select", "$.path"]` to just `"$.path"`
 
 Let's take a deeper look into the rules above:
 
+### select
 `"name": ["!!", "$.name"]`  
 This rule selects `name` property of the root element represented by `$`, and assigns it to 'name'.
 
+### chaining
 `"films": ["!!", "$.films", "length"]`  
 This ruleset has 2 rules - the first selects the `films` property of the input data, which is an array. It then executes `length` method on the selected data, that returns 5
 
+### selectAll
 `"filmNames": ["!!", ["selectAll", "$.films..name"]]`  
 The previous 2 selectors that we saw returned the first item that was found by jsonpath. If we want to select **all** items that match a jsonpath expression, then we have to use `selectAll` method, which will always return an array, even if only one item was found. So in this case `filmNames` will be an array that contains only the names from all films.
 
+### select first item
 `"firstFilm": ["!!", "$.films..name"]`  
 Using the same expression as above, but with `select` rather than `selectAll`, `firstFilm` will get the value of the first film name.
 
