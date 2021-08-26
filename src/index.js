@@ -4,11 +4,17 @@ import * as numeric from './numeric-methods.js';
 import * as select from './select-methods.js';
 import jp from 'jsonpath';
 
-function transform(data, jsonString) {
-    if (!jsonString) {
+/**
+ *
+ * @param data - the data to transform
+ * @param template - stringified JSON of the transformation template
+ * @returns {any}
+ */
+function transform(data, template) {
+    if (!template) {
         throw new Error("jsonString config must be provided")
     }
-    return JSON.parse(jsonString,
+    return JSON.parse(template,
         function (key, value) {
             if (Array.isArray(value) && value[0] === '!!') {
                 value.shift();
@@ -51,6 +57,7 @@ function applyRule (data, rule) {
 
 //all methods should accept 'data' as first parameter, and any number of following parameters from the rule
 const methods = {
+    "!!": {m: j => j, t: null},
     join: {m: array.join, t:'$data'},
     length: {m: array.length, t:'$data'},
     min: {m: d3array.min, t: d3array},

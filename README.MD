@@ -47,7 +47,7 @@ This is why `"type": "character"` from the template appears in the output.
 All arrays that have `"!!"` as their first item are executed as set of rules
 
 ## rules
-So Rules is an array of methods that are executed in-order while the output of one rule is chained as an input to the next rule.
+So Rules is an array where each item is a separate rule. They are executed in-order while the output of one rule is chained as an input to the next rule.
 * Each rule is an array of a method-name + arguments. 
 * If a rule has a method-name but no arguments, it can be simplified to just a string. E.g. `"length"` is the same as `["length"]`
 * The `select` method that selects a field from the data by jsonpath can be shortened from `["select", "$.path"]` to just `"$.path"`
@@ -56,7 +56,7 @@ Let's take a deeper look into the rules above:
 
 ### select
 `"name": ["!!", "$.name"]`  
-This rule selects `name` property of the root element represented by `$`, and assigns it to 'name'.
+This rule selects `name` property of the root element represented by `$`, and assigns it to `name` property.
 
 ### chaining
 `"films": ["!!", "$.films", "length"]`  
@@ -70,3 +70,66 @@ The previous 2 selectors that we saw returned the first item that was found by j
 `"firstFilm": ["!!", "$.films..name"]`  
 Using the same expression as above, but with `select` rather than `selectAll`, `firstFilm` will get the value of the first film name.
 
+## API
+DatamuleTransformer exposes 2 main methods: 
+* `applyRules (data, rules)` - applies the provided rules (array) in order on the data. The rules array does not have to start with '!!', but it can. Returns the transformed data.
+* `transform (data, template)` - executes the transformation template on `data`. Returns the transformed data.  
+
+For the docs below we'll use the following sample data:  
+```javascript 
+const cities = ["London", "Paris", "New York", "Jerusalem"];
+const king = "Arthur";
+const numbers = [13, 1, 22, 100.5]
+```
+#### join
+`["join", <separator>]` - concatenates all items in an array, with `separator` between each item.
+```javascript
+dmt.applyRules(cities, [["join", ","]])
+// "London,Paris,New York,Jerusalem"
+```
+#### length
+Returns the length of an array or a string. Length of other data types is not defined.
+```javascript
+dmt.applyRules(cities, ["length"])
+// 4
+
+dmt.applyRules(king, ["length"])
+// 6
+```
+
+#### min
+Returns the min value from an array. Ignores `undefined`, `null` and `NaN` values. Works for any comparable data type. If no comparable data types found in the array, returns `undefined`
+```javascript
+dmt.applyRules(numbers, ["min"])
+// 1
+dmt.applyRules(numbers, ["min"])     
+// "Jerusalem"
+```
+#### max
+Returns the max value from an array. Ignores `undefined`, `null` and `NaN` values. Works for any comparable data type. If no comparable data types found in the array, returns `undefined`
+```javascript
+dmt.applyRules(numbers, ["max"])
+// 100.5
+dmt.applyRules(numbers, ["max"])     
+// "Paris"
+```
+#### extent
+#### minIndex
+#### maxIndex
+#### select
+#### selectAll
+#### sum
+#### mean
+#### median
+#### cumsum
+#### fcumsum
+#### quantile
+#### quantileSorted
+#### variance
+#### deviation
+#### round
+#### ceil
+#### floor
+#### trunc
+#### toFixed
+#### fsum

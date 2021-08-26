@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40ad0763-3fb5-44eb-9360-981ec541051d" name="Default Changelist" comment="" />
+    <list default="true" id="40ad0763-3fb5-44eb-9360-981ec541051d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +32,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -69,8 +74,8 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.test" />
-      <item itemvalue="Node.js.index.js" />
       <item itemvalue="Mocha.select2" />
+      <item itemvalue="Node.js.index.js" />
     </list>
     <recent_temporary>
       <list>
@@ -87,7 +92,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1629721020650</updated>
-      <workItem from="1629721022146" duration="31962000" />
+      <workItem from="1629721022146" duration="35172000" />
+      <workItem from="1629909499787" duration="3961000" />
     </task>
     <servers />
   </component>
@@ -171,10 +177,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1398" height="342" key="GridCell.Tab.3.right/0.23.1440.877@0.23.1440.877" timestamp="1629843374844" />
-    <state x="221" y="100" key="SettingsEditor" timestamp="1629844985016">
+    <state x="221" y="100" key="SettingsEditor" timestamp="1629991005978">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="221" y="100" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1629844985015" />
+    <state x="221" y="100" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1629991005978" />
     <state x="343" y="79" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1629752418985">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -183,6 +189,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="518" y="382" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877@0.23.1440.877" timestamp="1629728538022" />
+    <state x="385" y="211" key="run.anything.popup" timestamp="1629990781887">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="385" y="211" key="run.anything.popup/0.23.1440.877@0.23.1440.877" timestamp="1629990781887" />
     <state x="385" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1629845523874">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
