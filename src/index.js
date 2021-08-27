@@ -1,8 +1,9 @@
-import * as d3array from 'd3-array';
-import * as d3fetch from 'd3-fetch'
+// import * as d3array from 'd3-array';
+// import * as d3fetch from 'd3-fetch'
 import * as array from './array-methods.js';
 import * as numeric from './numeric-methods.js';
 import * as select from './select-methods.js';
+import * as fetchMethods from './fetchers.js';
 import jp from 'jsonpath';
 
 export async function fetch(type, url, options) {
@@ -40,67 +41,75 @@ export function applyRules (data, rules) {
     if (!Array.isArray(rules)) {
         throw new Error("config must be an array");
     }
-    return rules.reduce(applyRule, data);
+    const ctx = {
+        applyRules
+    }
+    const reducer = getApplyRuleFunction(ctx);
+    return rules.reduce(reducer, data);
 }
 
-function applyRule (data, rule) {
-    let m;
-    let options = [];
-    if (typeof rule === 'string') {
-        if (rule.startsWith('$')) {
-            // '$.foo' is a shorthand for ['select', '$.foo']
-            m = 'select';
-            options = [rule];
-        } else {
-            // rules with no params can be expresses as string, such as 'length' instead of ['length']
-            m = rule;
+function getApplyRuleFunction (ctx) {
+    return function applyRule (data, rule) {
+        let m;
+        let options = [];
+        if (typeof rule === 'string') {
+            if (rule.startsWith('$')) {
+                // '$.foo' is a shorthand for ['select', '$.foo']
+                m = 'select';
+                options = [rule];
+            } else {
+                // rules with no params can be expresses as string, such as 'length' instead of ['length']
+                m = rule;
+            }
+        } else if (Array.isArray(rule)) {
+            m = rule.shift();
+            options = rule;
         }
-    } else if (Array.isArray(rule)) {
-        m = rule.shift();
-        options = rule;
+        const method = methods[m];
+        if (!method) {
+            throw new Error(`Rule type ${rule.type} not defined`);
+        }
+        // const that = method.t === '$data' ? data : method.t;
+        return method.call(null, ctx, data, ...options)
     }
-    const method = methods[m];
-    if (!method) {
-        throw new Error(`Rule type ${rule.type} not defined`);
-    }
-    const that = method.t === '$data' ? data : method.t;
-    return method.m.call(that, data, ...options)
 }
+
 
 //all methods should accept 'data' as first parameter, and any number of following parameters from the rule
 const methods = {
-    "!!": {m: j => j, t: null},
-    join: {m: array.join, t:'$data'},
-    length: {m: array.length, t:'$data'},
-    min: {m: d3array.min, t: d3array},
-    max: {m: d3array.max, t: d3array},
-    extent: {m: d3array.extent, t: d3array},
-    minIndex: {m: d3array.minIndex, t: d3array},
-    maxIndex: {m: d3array.maxIndex, t: d3array},
-    select: {m: select.select, t: null},
-    selectAll: {m: select.selectAll, t: null},
-    sum: {m: d3array.sum, t: d3array},
-    mean: {m: d3array.mean, t: d3array},
-    median: {m: d3array.median, t: d3array},
-    cumsum: {m: array.cumsum, t: d3array},
-    fcumsum: {m: array.fcumsum, t: d3array},
-    quantile: {m: d3array.quantile, t: d3array},
-    quantileSorted: {m: d3array.quantileSorted, t: d3array},
-    variance: {m: d3array.variance, t: d3array},
-    deviation: {m: d3array.deviation, t: d3array},
-    round: {m: numeric.round, t: null},
-    ceil: {m: numeric.ceil, t: null},
-    floor: {m: numeric.floor, t: null},
-    trunc: {m: numeric.trunc, t: null},
-    toFixed: {m: numeric.toFixed, t: null},
-    fsum: {m: d3array.fsum, t: d3array},
+    "!!": j => j,
+    join: array.join,
+    length: array.length,
+    min: array.min,
+    max: array.max,
+    extent: array.extent,
+    minIndex: array.minIndex,
+    maxIndex: array.maxIndex,
+    select: select.select,
+    selectAll: select.selectAll,
+    sum: array.sum,
+    mean: array.mean,
+    median: array.median,
+    cumsum: array.cumsum,
+    fcumsum: array.fcumsum,
+    quantile: array.quantile,
+    quantileSorted: array.quantileSorted,
+    variance: array.variance,
+    deviation: array.deviation,
+    round: numeric.round,
+    ceil: numeric.ceil,
+    floor: numeric.floor,
+    trunc: numeric.trunc,
+    toFixed: numeric.toFixed,
+    fsum: array.fsum,
     // stopped at bisect https://github.com/d3/d3-array/blob/v3.0.2/README.md#bisectLeft
-    jsonata: {m: select.jsonataEval, t:null}
+    jsonata: select.jsonataEval, // todo: remove this?
+    each: array.each
 }
 
 const fetchers = {
-    csv: d3fetch.csv,
-    dsv: d3fetch.dsv,
-    tsv: d3fetch.tsv,
-    json: d3fetch.json
+    csv: fetchMethods.csv,
+    dsv: fetchMethods.dsv,
+    tsv: fetchMethods.tsv,
+    json: fetchMethods.json
 }

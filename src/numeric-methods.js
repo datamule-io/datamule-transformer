@@ -25,26 +25,26 @@ function decimalAdjust (type, num, decimalPlaces) {
 }
 
 // Decimal round (half away from zero)
-export function round (num, decimalPlaces) {
+export function round (ctx, num, decimalPlaces) {
     return decimalAdjust('round', num, decimalPlaces);
 }
 
 // Decimal ceil
-export function ceil (num, decimalPlaces) {
+export function ceil (ctx, num, decimalPlaces) {
     return decimalAdjust('ceil', num, decimalPlaces);
 }
 
 // Decimal floor
-export function floor (num, decimalPlaces) {
+export function floor (ctx, num, decimalPlaces) {
     return decimalAdjust('floor', num, decimalPlaces);
 }
 
 // Decimal trunc
-export function trunc (num, decimalPlaces) {
+export function trunc (ctx, num, decimalPlaces) {
     return decimalAdjust('trunc', num, decimalPlaces);
 }
 
 // Format using fixed-point notation
-export function toFixed (num, decimalPlaces) {
+export function toFixed (ctx, num, decimalPlaces) {
     return decimalAdjust('round', num, decimalPlaces).toFixed(decimalPlaces);
 }

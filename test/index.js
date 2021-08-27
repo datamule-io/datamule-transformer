@@ -202,7 +202,7 @@ describe('Aggregations', function() {
             const data = [10, 8, 10, 8, 8, 4];
             const rules = ['deviation'];
             assert.equal(
-                round(dmt.applyRules(data, rules), 2),
+                round(null, dmt.applyRules(data, rules), 2),
                 2.19
             );
         });
@@ -212,7 +212,7 @@ describe('Aggregations', function() {
             const data = [.1, .1, .1, .1, .1, .1, .1, .1, .1, .1, ];
             const rules = ['fsum'];
             assert.equal(
-                round(dmt.applyRules(data, rules), 2),
+                dmt.applyRules(data, rules),
                 1
             );
         });
@@ -598,6 +598,18 @@ describe('selects', function () {
         });
     });
 });
+
+describe("each", function() {
+    it ('should apply the provided rules on each item in the array', function () {
+        const rules = [['each', ['round']]];
+        const data = [17.2, 1.5, 9.49999, -5.3, -5.5, 2.0001]
+        expect(
+            dmt.applyRules(data, rules)).to.eql(
+                [17, 2, 9, -5, -6, 2]
+        );
+    })
+})
+
 describe('transform', function () {
     it('should return a new json according to the template', function () {
         const template = JSON.stringify({
@@ -625,3 +637,4 @@ describe("no-rules", function() {
         expect(dmt.transform(swapiJson, template)).to.eql(JSON.parse(template));
     })
 })
+
