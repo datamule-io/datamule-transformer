@@ -54,21 +54,21 @@ So Rules is an array where each item is a separate rule. They are executed in-or
 
 Let's take a deeper look into the rules above:
 
-### select
-`"name": ["!!", "$.name"]`  
-This rule selects `name` property of the root element represented by `$`, and assigns it to `name` property.
+* **select**  
+    `"name": ["!!", "$.name"]`  
+    This rule selects `name` property of the root element represented by `$`, and assigns it to `name` property.
 
-### chaining
-`"films": ["!!", "$.films", "length"]`  
-This ruleset has 2 rules - the first selects the `films` property of the input data, which is an array. It then executes `length` method on the selected data, that returns 5
+* **chaining**  
+    `"films": ["!!", "$.films", "length"]`  
+    This ruleset has 2 rules - the first selects the `films` property of the input data, which is an array. It then executes `length` method on the selected data, that returns 5
 
-### selectAll
-`"filmNames": ["!!", ["selectAll", "$.films..name"]]`  
-The previous 2 selectors that we saw returned the first item that was found by jsonpath. If we want to select **all** items that match a jsonpath expression, then we have to use `selectAll` method, which will always return an array, even if only one item was found. So in this case `filmNames` will be an array that contains only the names from all films.
+* **selectAll**  
+    `"filmNames": ["!!", ["selectAll", "$.films..name"]]`  
+    The previous 2 selectors that we saw returned the first item that was found by jsonpath. If we want to select **all** items that match a jsonpath expression, then we have to use `selectAll` method, which will always return an array, even if only one item was found. So in this case `filmNames` will be an array that contains only the names from all films.
 
-### select first item
-`"firstFilm": ["!!", "$.films..name"]`  
-Using the same expression as above, but with `select` rather than `selectAll`, `firstFilm` will get the value of the first film name.
+* **select first item**  
+    `"firstFilm": ["!!", "$.films..name"]`  
+    Using the same expression as above, but with `select` rather than `selectAll`, `firstFilm` will get the value of the first film name.
 
 ## API
 DatamuleTransformer exposes 2 main methods: 

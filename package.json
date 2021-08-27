@@ -1,16 +1,23 @@
 {
   "name": "datamule-transformer",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "JSON to JSON transformation library. Using declarative JSON template.",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "patch": "npm version patch --no-git-tag-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:datamule-io/datamule-transformer.git"
   },
   "author": "Dan Bar-Shalom",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "d3-array": "^3.0.2",
+    "d3-fetch": "^3.0.1",
+    "jsonata": "^1.8.5",
     "jsonpath": "^1.1.1"
   },
   "devDependencies": {

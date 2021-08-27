@@ -1,4 +1,4 @@
-import { dmt } from '../src/index.js'
+import * as dmt from '../src/index.js'
 import chai from 'chai';
 import { round } from '../src/numeric-methods.js';
 const assert = chai.assert;
@@ -557,36 +557,47 @@ const swapiJson = {
     "url": "https://swapi.co/api/people/1/"
 };
 
-describe('select2', function () {
-    it('should return a field from an object', function () {
-        const rules = [ ['select', '$.name'] ];
-        assert.equal(
-            dmt.applyRules(swapiJson, rules),
-            'Luke Skywalker'
-        );
+describe('selects', function () {
+    describe('select2', function () {
+        it('should return a field from an object', function () {
+            const rules = [['select', '$.name']];
+            assert.equal(
+                dmt.applyRules(swapiJson, rules),
+                'Luke Skywalker'
+            );
+        });
+    });
+
+    describe('select shorthand', function () {
+        it('should return a field from an object', function () {
+            const rules = [ '$.name' ];
+            assert.equal(
+                dmt.applyRules(swapiJson, rules),
+                'Luke Skywalker'
+            );
+        });
+    });
+
+    describe('select and length', function () {
+        it('should return length of selected array', function () {
+            const rules = [['select', '$.films'], 'length'];
+            assert.equal(
+                dmt.applyRules(swapiJson, rules),
+                5
+            );
+        });
+    });
+
+    describe('jsonata', function () {
+        it('should return jsonata evaluated expression', function () {
+            const rules = [['jsonata', 'name']];
+            assert.equal(
+                dmt.applyRules(swapiJson, rules),
+                'Luke Skywalker'
+            );
+        });
     });
 });
-
-describe('select shorthand', function () {
-    it('should return a field from an object', function () {
-        const rules = [ '$.name' ];
-        assert.equal(
-            dmt.applyRules(swapiJson, rules),
-            'Luke Skywalker'
-        );
-    });
-});
-
-describe('select and length', function () {
-    it('should return length of selected array', function () {
-        const rules = [ ['select', '$.films'], 'length' ];
-        assert.equal(
-            dmt.applyRules(swapiJson, rules),
-            5
-        );
-    });
-});
-
 describe('transform', function () {
     it('should return a new json according to the template', function () {
         const template = JSON.stringify({
@@ -608,3 +619,9 @@ describe('transform', function () {
     });
 });
 
+describe("no-rules", function() {
+    it ('should output the template as is', function () {
+        const template = JSON.stringify({"b":2})
+        expect(dmt.transform(swapiJson, template)).to.eql(JSON.parse(template));
+    })
+})

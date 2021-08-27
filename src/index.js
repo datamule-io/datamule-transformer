@@ -1,8 +1,20 @@
-import * as d3array from "d3-array";
+import * as d3array from 'd3-array';
+import * as d3fetch from 'd3-fetch'
 import * as array from './array-methods.js';
 import * as numeric from './numeric-methods.js';
 import * as select from './select-methods.js';
 import jp from 'jsonpath';
+
+export async function fetch(type, url, options) {
+    const fetcher = fetchers[type];
+    if (!fetcher) {
+        throw new Error("fetch type must be one of 'csv', 'dsv', 'tsv', 'json'");
+    }
+    if (!url) {
+        throw new error("url must be provided");
+    }
+    return fetcher(url);
+}
 
 /**
  *
@@ -10,7 +22,7 @@ import jp from 'jsonpath';
  * @param template - stringified JSON of the transformation template
  * @returns {any}
  */
-function transform(data, template) {
+export function transform(data, template) {
     if (!template) {
         throw new Error("jsonString config must be provided")
     }
@@ -24,11 +36,11 @@ function transform(data, template) {
         })
 }
 
-function applyRules (data, config) {
-    if (!Array.isArray(config)) {
+export function applyRules (data, rules) {
+    if (!Array.isArray(rules)) {
         throw new Error("config must be an array");
     }
-    return config.reduce(applyRule, data);
+    return rules.reduce(applyRule, data);
 }
 
 function applyRule (data, rule) {
@@ -83,9 +95,12 @@ const methods = {
     toFixed: {m: numeric.toFixed, t: null},
     fsum: {m: d3array.fsum, t: d3array},
     // stopped at bisect https://github.com/d3/d3-array/blob/v3.0.2/README.md#bisectLeft
+    jsonata: {m: select.jsonataEval, t:null}
 }
 
-export const dmt = {
-    applyRules,
-    transform
+const fetchers = {
+    csv: d3fetch.csv,
+    dsv: d3fetch.dsv,
+    tsv: d3fetch.tsv,
+    json: d3fetch.json
 }
