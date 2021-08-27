@@ -610,6 +610,30 @@ describe("each", function() {
     })
 })
 
+describe("map", function() {
+    it ('should apply the provided template on the object', function () {
+        const template = {
+            name: ["!!", "$.fullName"],
+            phone: ["!!", "$.phone"]
+        };
+        const rules = [["map", template]]
+        const data = {
+            fullName: "John Doe",
+            phone: "1234567890",
+            address: "Penny lane 7, Liverpool"
+        }
+        expect(
+            dmt.applyRules(data, rules)).to.eql(
+            {
+                name: "John Doe",
+                phone: "1234567890"
+            }
+        );
+    })
+})
+
+
+
 describe('transform', function () {
     it('should return a new json according to the template', function () {
         const template = JSON.stringify({

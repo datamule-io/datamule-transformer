@@ -4,6 +4,7 @@ import * as array from './array-methods.js';
 import * as numeric from './numeric-methods.js';
 import * as select from './select-methods.js';
 import * as fetchMethods from './fetchers.js';
+import * as object from './object-methods.js';
 import jp from 'jsonpath';
 
 export async function fetch(type, url, options) {
@@ -42,7 +43,8 @@ export function applyRules (data, rules) {
         throw new Error("config must be an array");
     }
     const ctx = {
-        applyRules
+        applyRules,
+        transform
     }
     const reducer = getApplyRuleFunction(ctx);
     return rules.reduce(reducer, data);
@@ -104,7 +106,8 @@ const methods = {
     fsum: array.fsum,
     // stopped at bisect https://github.com/d3/d3-array/blob/v3.0.2/README.md#bisectLeft
     jsonata: select.jsonataEval, // todo: remove this?
-    each: array.each
+    each: array.each,
+    map: object.map
 }
 
 const fetchers = {
