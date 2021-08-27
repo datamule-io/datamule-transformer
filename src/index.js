@@ -5,7 +5,6 @@ import * as numeric from './numeric-methods.js';
 import * as select from './select-methods.js';
 import * as fetchMethods from './fetchers.js';
 import * as object from './object-methods.js';
-import jp from 'jsonpath';
 
 export async function fetch(type, url, options) {
     const fetcher = fetchers[type];
@@ -64,8 +63,10 @@ function getApplyRuleFunction (ctx) {
                 m = rule;
             }
         } else if (Array.isArray(rule)) {
-            m = rule.shift();
-            options = rule;
+            // m = rule.shift();
+            m = rule[0];
+            options = rule.slice(1)
+            // options = rule;
         }
         const method = methods[m];
         if (!method) {

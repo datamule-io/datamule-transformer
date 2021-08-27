@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40ad0763-3fb5-44eb-9360-981ec541051d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/object-methods.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/index.js" afterDir="false" />
@@ -14,6 +13,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/test/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/index.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1x7zfo5UYytfki6Ygb0HHEhhdpP" />
   <component name="ProjectViewState">
@@ -93,7 +96,7 @@
       <option name="presentableId" value="Default" />
       <updated>1629721020650</updated>
       <workItem from="1629721022146" duration="35172000" />
-      <workItem from="1629909499787" duration="19066000" />
+      <workItem from="1629909499787" duration="20894000" />
     </task>
     <servers />
   </component>
@@ -105,54 +108,54 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="184" y="123" width="1071" height="748" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877@0.23.1440.877" timestamp="1630005463256" />
-    <state x="100" y="123" width="1240" height="677" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1630095634025">
+    <state x="100" y="123" width="1240" height="677" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1630096658350">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="100" y="123" width="1240" height="677" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.877@0.23.1440.877" timestamp="1630095634025" />
+    <state x="100" y="123" width="1240" height="677" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.877@0.23.1440.877" timestamp="1630096658350" />
     <state x="297" y="37" key="CommitChangelistDialog2" timestamp="1630014450730">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="297" y="37" key="CommitChangelistDialog2/0.23.1440.877@0.23.1440.877" timestamp="1630014450730" />
-    <state width="819" height="466" key="DebuggerActiveHint" timestamp="1629786255345">
+    <state width="819" height="466" key="DebuggerActiveHint" timestamp="1630098636582">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="819" height="466" key="DebuggerActiveHint/0.23.1440.877@0.23.1440.877" timestamp="1629786255345" />
+    <state width="819" height="466" key="DebuggerActiveHint/0.23.1440.877@0.23.1440.877" timestamp="1630098636582" />
     <state x="100" y="123" width="1240" height="677" key="DiffContextDialog" timestamp="1630077390772">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="100" y="123" width="1240" height="677" key="DiffContextDialog/0.23.1440.877@0.23.1440.877" timestamp="1630077390772" />
-    <state width="1398" height="360" key="GridCell.Tab.0.bottom" timestamp="1630095513695">
+    <state width="1398" height="342" key="GridCell.Tab.0.bottom" timestamp="1630098360708">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="360" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1630095513695" />
-    <state width="1398" height="360" key="GridCell.Tab.0.center" timestamp="1630095513693">
+    <state width="1398" height="342" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1630098360708" />
+    <state width="1398" height="342" key="GridCell.Tab.0.center" timestamp="1630098360707">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="360" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1630095513693" />
-    <state width="1398" height="360" key="GridCell.Tab.0.left" timestamp="1630095513692">
+    <state width="1398" height="342" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1630098360707" />
+    <state width="1398" height="342" key="GridCell.Tab.0.left" timestamp="1630098360706">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="360" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1630095513692" />
-    <state width="1398" height="360" key="GridCell.Tab.0.right" timestamp="1630095513694">
+    <state width="1398" height="342" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1630098360706" />
+    <state width="1398" height="342" key="GridCell.Tab.0.right" timestamp="1630098360708">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="360" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1630095513694" />
-    <state width="1398" height="342" key="GridCell.Tab.1.bottom" timestamp="1629843374841">
+    <state width="1398" height="342" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1630098360708" />
+    <state width="1398" height="342" key="GridCell.Tab.1.bottom" timestamp="1630098361954">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="342" key="GridCell.Tab.1.bottom/0.23.1440.877@0.23.1440.877" timestamp="1629843374841" />
-    <state width="1398" height="342" key="GridCell.Tab.1.center" timestamp="1629843374840">
+    <state width="1398" height="342" key="GridCell.Tab.1.bottom/0.23.1440.877@0.23.1440.877" timestamp="1630098361954" />
+    <state width="1398" height="342" key="GridCell.Tab.1.center" timestamp="1630098361953">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="342" key="GridCell.Tab.1.center/0.23.1440.877@0.23.1440.877" timestamp="1629843374840" />
-    <state width="1398" height="342" key="GridCell.Tab.1.left" timestamp="1629843374839">
+    <state width="1398" height="342" key="GridCell.Tab.1.center/0.23.1440.877@0.23.1440.877" timestamp="1630098361953" />
+    <state width="1398" height="342" key="GridCell.Tab.1.left" timestamp="1630098361952">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="342" key="GridCell.Tab.1.left/0.23.1440.877@0.23.1440.877" timestamp="1629843374839" />
-    <state width="1398" height="342" key="GridCell.Tab.1.right" timestamp="1629843374840">
+    <state width="1398" height="342" key="GridCell.Tab.1.left/0.23.1440.877@0.23.1440.877" timestamp="1630098361952" />
+    <state width="1398" height="342" key="GridCell.Tab.1.right" timestamp="1630098361953">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1398" height="342" key="GridCell.Tab.1.right/0.23.1440.877@0.23.1440.877" timestamp="1629843374840" />
+    <state width="1398" height="342" key="GridCell.Tab.1.right/0.23.1440.877@0.23.1440.877" timestamp="1630098361953" />
     <state width="1398" height="342" key="GridCell.Tab.2.bottom" timestamp="1629843374843">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -209,5 +212,17 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="385" y="213" width="670" height="676" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1630096194475" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/index.js</url>
+          <line>27</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

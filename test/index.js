@@ -632,6 +632,35 @@ describe("map", function() {
     })
 })
 
+describe("each - map", function() {
+    it ('should apply the provided template on each item in the array', function () {
+        const template = {
+            name: ["!!", "$.fullName"],
+            phone: ["!!", "$.phone"]
+        };
+        const rules = [["each", [["map", template]]]]
+        const data = [{
+            fullName: "John Doe",
+            phone: "1234567890",
+            address: "Penny lane 7, Liverpool"
+        },{
+            fullName: "Elza D.",
+            phone: "8787878787",
+            address: "Ice palace, Wonderland"
+        }]
+        expect(
+            dmt.applyRules(data, rules)).to.eql(
+            [{
+                name: "John Doe",
+                phone: "1234567890"
+            },{
+                name: "Elza D.",
+                phone: "8787878787"
+            }]
+        );
+    })
+})
+
 
 
 describe('transform', function () {
