@@ -27,11 +27,19 @@ export function transform(data, template) {
     if (!template) {
         throw new Error("jsonString config must be provided")
     }
+    let innerRules = 0;
     return JSON.parse(template,
         function (key, value) {
-            if (Array.isArray(value) && value[0] === '!!') {
-                value.shift();
-                return applyRules(data, value)
+            if (value === '!!') {
+                innerRules++;
+            } else if (Array.isArray(value) && value[0] === '!!') {
+                if (innerRules > 1) {
+                    innerRules --
+                } else {
+                    innerRules = 0;
+                    value.shift();
+                    return applyRules(data, value)
+                }
             }
             return value
         })

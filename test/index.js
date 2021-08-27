@@ -664,23 +664,92 @@ describe("each - map", function() {
 
 
 describe('transform', function () {
-    it('should return a new json according to the template', function () {
-        const template = JSON.stringify({
-            type: "character",
-            name: ['!!', '$.name'],
-            films: ["!!", '$.films', 'length'],
-            filmNames: ["!!", ["selectAll", "$.films..name"]],
-            firstFilm: ["!!", "$.films..name"]
-        })
-        expect(
-            dmt.transform(swapiJson, template),
-        ).to.eql({
-            "type": "character",
-            "name": "Luke Skywalker",
-            films: 5,
-            filmNames: ["film2", "film6", "film3", "film1", "film7"],
-            firstFilm: "film2"
-        })
+    describe('transform each-map', function () {
+        it('should return a new json according to the template', function () {
+            const template = JSON.stringify(
+        {"b":["!!", ["each", [["map", {
+                "name": ["!!", "$.name"],
+                "email": ["!!", "$.email"]
+                }]]]]}
+            );
+            const data = [{
+                "_id": "61281445910b9d4c3bc0ed50",
+                "index": 529,
+                "name": "Elise Landry",
+                "email": "eliselandry@unia.com",
+                "phone": "+1 (902) 442-3272",
+                "friends": [
+                    {
+                        "id": 0,
+                        "name": "Jannie Henry"
+                    },
+                    {
+                        "id": 1,
+                        "name": "Margaret Guerrero"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Shepard Carr"
+                    }
+                ]
+            },
+                {
+                    "_id": "6128144551fd14ee6d6239ce",
+                    "index": 530,
+                    "guid": "449ca924-1b85-41ab-890b-370788268948",
+                    "name": "Constance Craig",
+                    "friends": [
+                        {
+                            "id": 0,
+                            "name": "Burnett Wilcox"
+                        },
+                        {
+                            "id": 1,
+                            "name": "Vega Hobbs"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Serena Roach"
+                        }
+                    ]
+                }
+            ];
+            expect(
+                dmt.transform(data, template),
+            ).to.eql({
+                b: [
+                    {
+                        "name": "Elise Landry",
+                        "email": "eliselandry@unia.com"
+                    },
+                    {
+                        "name"
+                    :
+                        "Constance Craig"
+                    }
+                ]
+            })
+        });
+    });
+    describe('simple transform', function () {
+        it('should return a new json according to the template', function () {
+            const template = JSON.stringify({
+                type: "character",
+                name: ['!!', '$.name'],
+                films: ["!!", '$.films', 'length'],
+                filmNames: ["!!", ["selectAll", "$.films..name"]],
+                firstFilm: ["!!", "$.films..name"]
+            })
+            expect(
+                dmt.transform(swapiJson, template),
+            ).to.eql({
+                "type": "character",
+                "name": "Luke Skywalker",
+                films: 5,
+                filmNames: ["film2", "film6", "film3", "film1", "film7"],
+                firstFilm: "film2"
+            })
+        });
     });
 });
 
