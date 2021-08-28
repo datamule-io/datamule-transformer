@@ -75,11 +75,57 @@ DatamuleTransformer exposes 2 main methods:
 * `applyRules (data, rules)` - applies the provided rules (array) in order on the data. The rules array does not have to start with '!!', but it can. Returns the transformed data.
 * `transform (data, template)` - executes the transformation template on `data`. Returns the transformed data.  
 
-For the docs below we'll use the following sample data:  
+For the docs below we'll be using the following sample data:  
 ```javascript 
 const cities = ["London", "Paris", "New York", "Jerusalem"];
 const king = "Arthur";
-const numbers = [13, 1, 22, 100.5]
+const numbers = [13, 1, 22, 100.5];
+const decimals = [0.5, 3.001, 29.999, -2.01, -5.5];
+const book = {
+  "author": "Stephan King",
+  "isbn": "9884958-3837485",
+  "title": "IT",
+  "price": "39.9"
+};
+const contacts = [{
+      "id": "61281445910b9d4c3bc0ed50",
+      "balance": "$1,025.68",
+      "picture": "http://placehold.it/32x32",
+      "age": 30,
+      "name": "Elise Landry",
+      "gender": "female",
+      "email": "eliselandry@unia.com",
+      "phone": "+1 (902) 442-3272",
+      "tags": [
+        "ad",
+        "ipsum",
+        "id",
+        "aliquip",
+        "irure",
+        "aute",
+        "et"
+      ]
+    },
+    {
+      "id": "6128144551fd14ee6d6239ce",
+      "balance": "$1,135.05",
+      "picture": "http://placehold.it/32x32",
+      "age": 21,
+      "name": "Constance Craig",
+      "gender": "female",
+      "email": "constancecraig@tribalog.com",
+      "phone": "+1 (941) 541-2934",
+      "tags": [
+        "sit",
+        "est",
+        "eu",
+        "voluptate",
+        "dolor",
+        "laboris",
+        "ad"
+      ]
+    }
+]
 ```
 #### join
 `["join", <separator>]` - concatenates all items in an array, with `separator` between each item.
@@ -133,3 +179,48 @@ dmt.applyRules(numbers, ["max"])
 #### trunc
 #### toFixed
 #### fsum
+#### each
+Runs a set of rules on each item in an array, and returns the result. The rules parameter doesn't have to start with `"!!"` since it's expected to be executable rules.
+```javascript
+dmt.applyRules(decimals, [
+  ["each", ["round"]]
+]);
+// [1, 3, 30, -2, -6]
+```
+#### map
+Runs a transformation on a given object. Commonly useful in combination with `each`. The transformation is expressed as a template, exactly as `dmt.transform` expects.
+```javascript
+dmt.applyRules(book, [["map", {
+  "Author": "$.author",
+  "Name": "$.title"
+}]]);
+/*
+{
+  "Author": "Stephan King",
+  "Name": "IT"  
+}
+*/
+
+dmt.applyRules(contacts, [
+    ["each",
+        [["map", {
+            "name": ["!!", "$.name"],
+            "email": ["!!", "$.email"],
+            "tags": ["!!", "$.tags", ["join", ","]]
+        }]]
+    ]
+]);
+/*
+[
+    {
+        "name": "Elise Landry",
+        "email": "eliselandry@unia.com",
+        "tags": "ad,ipsum,id,aliquip,irure,aute,et"
+    },{
+        "name": "Constance Craig",
+        "email": "constancecraig@tribalog.com",
+        "tags": "sit,est,eu,voluptate,dolor,laboris,ad"
+    }    
+]
+*/
+```

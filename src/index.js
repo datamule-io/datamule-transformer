@@ -77,46 +77,49 @@ function getApplyRuleFunction (ctx) {
             // options = rule;
         }
         const method = methods[m];
+        if (typeof rule == 'string' && method.minParams) {
+            throw new Error(`Rule '${rule}' must have params. Did you forget to enclose it with []?`);
+        }
         if (!method) {
             throw new Error(`Rule type ${rule.type} not defined`);
         }
         // const that = method.t === '$data' ? data : method.t;
-        return method.call(null, ctx, data, ...options)
+        return method.m.call(null, ctx, data, ...options)
     }
 }
 
 
 //all methods should accept 'data' as first parameter, and any number of following parameters from the rule
 const methods = {
-    "!!": j => j,
-    join: array.join,
-    length: array.length,
-    min: array.min,
-    max: array.max,
-    extent: array.extent,
-    minIndex: array.minIndex,
-    maxIndex: array.maxIndex,
-    select: select.select,
-    selectAll: select.selectAll,
-    sum: array.sum,
-    mean: array.mean,
-    median: array.median,
-    cumsum: array.cumsum,
-    fcumsum: array.fcumsum,
-    quantile: array.quantile,
-    quantileSorted: array.quantileSorted,
-    variance: array.variance,
-    deviation: array.deviation,
-    round: numeric.round,
-    ceil: numeric.ceil,
-    floor: numeric.floor,
-    trunc: numeric.trunc,
-    toFixed: numeric.toFixed,
-    fsum: array.fsum,
+    "!!": {m:j => j, minParams: 0},
+    join: {m:array.join, minParams: 0},
+    length: {m:array.length, minParams: 0},
+    min: {m:array.min, minParams: 0},
+    max: {m:array.max, minParams: 0},
+    extent: {m:array.extent, minParams: 0},
+    minIndex: {m:array.minIndex, minParams: 0},
+    maxIndex: {m:array.maxIndex, minParams: 0},
+    select: {m:select.select, minParams: 0},
+    selectAll: {m:select.selectAll, minParams: 1},
+    sum: {m:array.sum, minParams: 0},
+    mean: {m:array.mean, minParams: 0},
+    median: {m:array.median, minParams: 0},
+    cumsum: {m:array.cumsum, minParams: 0},
+    fcumsum: {m:array.fcumsum, minParams: 0},
+    quantile: {m:array.quantile, minParams: 1},
+    quantileSorted: {m:array.quantileSorted, minParams: 1},
+    variance: {m:array.variance, minParams: 0},
+    deviation: {m:array.deviation, minParams: 0},
+    round: {m:numeric.round, minParams: 0},
+    ceil: {m:numeric.ceil, minParams: 0},
+    floor: {m:numeric.floor, minParams: 0},
+    trunc: {m:numeric.trunc, minParams: 0},
+    toFixed: {m:numeric.toFixed, minParams: 0},
+    fsum: {m:array.fsum, minParams: 0},
     // stopped at bisect https://github.com/d3/d3-array/blob/v3.0.2/README.md#bisectLeft
-    jsonata: select.jsonataEval, // todo: remove this?
-    each: array.each,
-    map: object.map
+    jsonata: {m:select.jsonataEval, minParams: 0}, // todo: {m:remove this?
+    each: {m:array.each, minParams: 1},
+    map: {m:object.map, minParams: 1}
 }
 
 const fetchers = {
