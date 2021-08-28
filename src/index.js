@@ -6,6 +6,7 @@ import * as select from './select-methods.js';
 import * as fetchMethods from './fetchers.js';
 import * as object from './object-methods.js';
 import * as extensions from './extensions.js';
+import * as datetime from './datetime-methods.js';
 
 export async function fetch(type, url, options) {
     const fetcher = fetchers[type];
@@ -129,7 +130,8 @@ const methods = {
     jsonata: {m:select.jsonataEval, minParams: 0}, // todo: {m:remove this?
     each: {m:array.each, minParams: 1},
     map: {m:object.map, minParams: 1},
-    extension: {m: extensions.extension, minParams:0}
+    extension: {m: extensions.extension, minParams:0},
+    now: {m: datetime.now, minParams:0}
 }
 
 const fetchers = {
