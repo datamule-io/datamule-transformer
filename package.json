@@ -1,6 +1,6 @@
 {
   "name": "datamule-transformer",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "JSON to JSON transformation library. Using declarative JSON template.",
   "main": "src/index.js",
   "type": "module",

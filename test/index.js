@@ -828,3 +828,33 @@ describe("each-map", function() {
     })
 })
 
+describe("extensions", function() {
+    describe("extensions provider", function () {
+        it('call extensions provider when hitting $$. rule', function () {
+            const extensionsProvider = (ctx, data, ext) => {
+                return ext;
+            }
+            const data = {};
+            const rules = ['$$.foo']
+            assert.equal(
+                dmt.applyRules(data, rules, { extensionsProvider }),
+                'foo'
+            );
+        })
+    });
+    describe("extensions with params", function () {
+        it ('call extensions provider when hitting $$. rule and pass params and data', function () {
+            const extensionsProvider = (ctx, data, ext, options) => {
+                if (ext === 'add') {
+                    return data + options[0];
+                }
+            }
+            const data = 5;
+            const rules = [['$$.add', 7]]
+            assert.equal(
+                dmt.applyRules(data, rules, { extensionsProvider }),
+                12
+            );
+        })
+    });
+});

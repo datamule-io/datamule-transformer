@@ -5,6 +5,7 @@ import * as numeric from './numeric-methods.js';
 import * as select from './select-methods.js';
 import * as fetchMethods from './fetchers.js';
 import * as object from './object-methods.js';
+import * as extensions from './extensions.js';
 
 export async function fetch(type, url, options) {
     const fetcher = fetchers[type];
@@ -23,7 +24,7 @@ export async function fetch(type, url, options) {
  * @param template - stringified JSON of the transformation template
  * @returns {any}
  */
-export function transform(data, template) {
+export function transform(data, template, options) {
     if (!template) {
         throw new Error("jsonString config must be provided")
     }
@@ -38,20 +39,21 @@ export function transform(data, template) {
                 } else {
                     innerRules = 0;
                     value.shift();
-                    return applyRules(data, value)
+                    return applyRules(data, value, options)
                 }
             }
             return value
         })
 }
 
-export function applyRules (data, rules) {
+export function applyRules (data, rules, options) {
     if (!Array.isArray(rules)) {
         throw new Error("config must be an array");
     }
     const ctx = {
         applyRules,
-        transform
+        transform,
+        extensionsProvider: options && options.extensionsProvider ? options.extensionsProvider : () => undefined
     }
     const reducer = getApplyRuleFunction(ctx);
     return rules.reduce(reducer, data);
@@ -62,7 +64,11 @@ function getApplyRuleFunction (ctx) {
         let m;
         let options = [];
         if (typeof rule === 'string') {
-            if (rule.startsWith('$')) {
+            if (rule.startsWith('$$.')) {
+                m = 'extension';
+                options = [rule.substr(3)]; // "$$.".length
+            }
+            else if (rule.startsWith('$')) {
                 // '$.foo' is a shorthand for ['select', '$.foo']
                 m = 'select';
                 options = [rule];
@@ -74,7 +80,10 @@ function getApplyRuleFunction (ctx) {
             // m = rule.shift();
             m = rule[0];
             options = rule.slice(1)
-            // options = rule;
+            if (m.startsWith('$$.')) {
+                options.unshift(m.substr(3));
+                m = 'extension';
+            }
         }
         const method = methods[m];
         if (typeof rule == 'string' && method.minParams) {
@@ -119,7 +128,8 @@ const methods = {
     // stopped at bisect https://github.com/d3/d3-array/blob/v3.0.2/README.md#bisectLeft
     jsonata: {m:select.jsonataEval, minParams: 0}, // todo: {m:remove this?
     each: {m:array.each, minParams: 1},
-    map: {m:object.map, minParams: 1}
+    map: {m:object.map, minParams: 1},
+    extension: {m: extensions.extension, minParams:0}
 }
 
 const fetchers = {

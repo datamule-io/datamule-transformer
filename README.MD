@@ -72,9 +72,10 @@ Let's take a deeper look into the rules above:
 
 ## API
 DatamuleTransformer exposes 2 main methods: 
-* `applyRules (data, rules)` - applies the provided rules (array) in order on the data. The rules array does not have to start with '!!', but it can. Returns the transformed data.
-* `transform (data, template)` - executes the transformation template on `data`. Returns the transformed data.  
+* `applyRules (data, rules, options)` - applies the provided rules (array) in order on the data. The rules array does not have to start with '!!', but it can. Returns the transformed data.
+* `transform (data, template, options)` - executes the transformation template on `data`. Returns the transformed data.  
 
+`options` is an object that currently can optionally have one property only: `extensionsProvider`. See details below.
 For the docs below we'll be using the following sample data:  
 ```javascript 
 const cities = ["London", "Paris", "New York", "Jerusalem"];
@@ -223,4 +224,52 @@ dmt.applyRules(contacts, [
     }    
 ]
 */
+```
+
+### extensions 
+You can extend the functionality of DatamuleTransformer by providing a callback function that will handle your extensions. 
+To pass the callback function, add it to the `options` parameter as follows:
+```javascript
+const options = {
+    extensionsProvider: (ctx, data, ext, options) => {
+      // implement your extensions
+    }
+}
+dmt.applyRules(data, rules, options);
+```
+
+The signature of the `extensionsProvider` method, as you can see above, has 4 parameters:
+* `ctx` - context parameter that has reference to `applyRules`, `transform` and your own `extensionsProvider` methods. You can use it if your extension needs to recursively call one of these methods.
+* `data` - the data on which you need to operate. 
+* `ext` - the name of the extension that was used by the rule that triggered the extension
+* `options` - additional parameters that were passed by the rule that triggered the extension.
+
+To call an extension, the rule should prepand the extension name it with `$$.`
+Let's see some examples:
+```javascript
+// an extension provider that simply echos the name of the extension
+const extensionsProvider = (ctx, data, ext) => {
+    return ext;
+}
+const data = {};
+const rules = ['$$.foo']
+console.log (dmt.applyRules(data, rules, { extensionsProvider }));
+// 'foo'
+);
+```
+
+```javascript
+// an extension that adds the provided parameter to data 
+const extensionsProvider = (ctx, data, ext, options) => {
+    if (typeof data !== 'number') {
+        return data;
+    }
+    const arg = options && options[0] ? options[0] : 0;
+    return data + arg;
+}
+const data = 5;
+const rules = [['$$.add', 7]]
+console.log (dmt.applyRules(data, rules, { extensionsProvider }));
+// 12
+);
 ```
