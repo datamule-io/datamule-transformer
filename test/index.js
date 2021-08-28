@@ -858,3 +858,26 @@ describe("extensions", function() {
         })
     });
 });
+
+describe("date and time", function() {
+    describe("now", function () {
+        it('should return a date object', function () {
+            const data = {};
+            const rules = ['now']
+            const res = dmt.applyRules(data, rules);
+            assert(
+                res instanceof Date,
+            );
+        })
+    });
+    describe("date format", function () {
+        it ('should format a date object according to default locale', function () {
+            const data = new Date('2021-08-28T22:25:52.688Z');
+            const rules = [['timeFormat', '%x %X']]
+            assert.equal(
+                dmt.applyRules(data, rules),
+                '8/29/2021 1:25:52 AM' // default locale is en-US:
+            );
+        })
+    });
+});

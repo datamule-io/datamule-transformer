@@ -131,7 +131,8 @@ const methods = {
     each: {m:array.each, minParams: 1},
     map: {m:object.map, minParams: 1},
     extension: {m: extensions.extension, minParams:0},
-    now: {m: datetime.now, minParams:0}
+    now: {m: datetime.now, minParams:0},
+    timeFormat: {m: datetime.timeFormat, minParams:1}
 }
 
 const fetchers = {
