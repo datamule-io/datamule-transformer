@@ -8,6 +8,23 @@ export function length (ctx, array) {
     return array.length;
 }
 
+export function reverse (ctx, array) {
+    return d3array.reverse(array);
+}
+
+// todo: add ability to send selector parameter, if we're sorting objects
+export function sort (ctx, array, order) {
+    const sortFuntion = order === 'desc' ? d3array.descending : d3array.ascending;
+    return d3array.sort(array, sortFuntion);
+}
+/**
+ * Concatinates multiple arrays or any other item into one array
+ */
+export function concat (ctx, items) {
+    return [].concat(...items);
+}
+
+
 export function cumsum (ctx, array) {
     return Array.from(d3array.cumsum(array));
 }

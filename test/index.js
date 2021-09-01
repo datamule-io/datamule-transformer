@@ -587,7 +587,7 @@ describe('selects', function () {
             );
         });
     });
-
+    //todo: remove this
     describe('jsonata', function () {
         it('should return jsonata evaluated expression', function () {
             const rules = [['jsonata', 'name']];
@@ -877,6 +877,53 @@ describe("date and time", function() {
             assert.equal(
                 dmt.applyRules(data, rules),
                 '8/29/2021 1:25:52 AM' // default locale is en-US:
+            );
+        })
+    });
+});
+
+
+describe("Array methods", function() {
+    describe("reverse", function () {
+        it('should reverse the order of the array', function () {
+            const rules = ['reverse'];
+            const data = [3, 6, 4, 8, 10]
+            expect(
+                dmt.applyRules(data, rules)).to.eql(
+                [10, 8, 4, 6, 3]
+            );
+        })
+    });
+
+    describe("sort", function () {
+        it('should sort the array', function () {
+            const rules = ['sort'];
+            const data = [3, 6, 4, 8, 10]
+            expect(
+                dmt.applyRules(data, rules)).to.eql(
+                [3, 4, 6, 8, 10]
+            );
+        })
+    });
+
+    describe("sort desc", function () {
+        it('should sort the array descending', function () {
+            const rules = [['sort', 'desc']];
+            const data = [3, 6, 4, 8, 10]
+            expect(
+                dmt.applyRules(data, rules)).to.eql(
+                [10,8,6,4,3]
+            );
+        })
+    });
+
+    describe("concat", function () {
+        it('should concatenate all members of an array into one array. members can be arrays or scalars', function () {
+            const rules = ['concat'];
+            const data = [[3, 6, 4, 8, 10],7,[2,3,11],22]
+            expect(
+                dmt.applyRules(data, rules)).to.eql(
+                [3, 6, 4, 8, 10, 7, 2, 3, 11, 22]
             );
         })
     });

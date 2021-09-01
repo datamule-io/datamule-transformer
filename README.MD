@@ -180,6 +180,26 @@ dmt.applyRules(numbers, ["max"])
 #### trunc
 #### toFixed
 #### fsum
+#### concat
+Concatenates multiple arrays or other scalars into one array
+```javascript
+dmt.applyRules(['foo', 'bar', numbers,decimals], ["contact"]);
+// ["foo", "bar", 13, 1, 22, 100.5, 0.5, 3.001, 29.999, -2.01, -5.5];
+```
+#### reverse
+Reverses the order of items in an array
+```javascript
+dmt.applyRules(numbers, ["reverse"]);
+// [100.5, 22, 1, 13];
+```
+#### sort
+Sorts the array according to the natural order of the items. The second optional parameter can be `asc` or `desc`
+```javascript
+dmt.applyRules(decimals, [
+  ["sort", "desc"]
+]);
+// [1, 3, 30, -2, -6]
+```
 #### each
 Runs a set of rules on each item in an array, and returns the result. The rules parameter doesn't have to start with `"!!"` since it's expected to be executable rules.
 ```javascript

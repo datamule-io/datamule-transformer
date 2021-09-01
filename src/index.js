@@ -132,7 +132,10 @@ const methods = {
     map: {m:object.map, minParams: 1},
     extension: {m: extensions.extension, minParams:0},
     now: {m: datetime.now, minParams:0},
-    timeFormat: {m: datetime.timeFormat, minParams:1}
+    timeFormat: {m: datetime.timeFormat, minParams:1},
+    concat: {m:array.concat, minParams:0},
+    sort: {m:array.sort, minParams:0},
+    reverse: {m:array.reverse, minParams:0}
 }
 
 const fetchers = {
