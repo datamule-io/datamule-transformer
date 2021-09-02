@@ -12,9 +12,18 @@ export function reverse (ctx, array) {
     return d3array.reverse(array);
 }
 
-// todo: add ability to send selector parameter, if we're sorting objects
-export function sort (ctx, array, order) {
-    const sortFuntion = order === 'desc' ? d3array.descending : d3array.ascending;
+/**
+ * sorts an array.
+ * @param order {string} optional. 'asc' or 'desc'. Default is 'asc'.
+ * @param byField {string} optional. If sorting objects, you can specify by which field in the object you'd like to sort
+ */
+export function sort (ctx, array, order, byField) {
+    let sortFuntion = order === 'desc' ? d3array.descending : d3array.ascending;
+    if (byField) {
+      return d3array.sort(array, (a, b) => {
+          return sortFuntion(a[byField], b[byField])
+      })
+    }
     return d3array.sort(array, sortFuntion);
 }
 /**
@@ -24,6 +33,26 @@ export function concat (ctx, items) {
     return [].concat(...items);
 }
 
+/**
+ * @returns an array containing every value in arrays that is not in any of the others arrays.
+ */
+export function difference (ctx, arrays) {
+    return Array.from(d3array.difference(...arrays));
+}
+
+/**
+ * @returns an array containing every distinct value that appears in any of the given arrays. The order of values in the returned Array is based on their first occurrence in the given arrays.
+ */
+export function union (ctx, arrays) {
+    return Array.from(d3array.union(...arrays));
+}
+
+/**
+ * @returns an array containing every distinct value that appears in all of the given arrays. The order of values in the returned array is based on their first occurrence in the given arrays.
+ */
+export function intersection (ctx, arrays) {
+    return Array.from(d3array.intersection(...arrays));
+}
 
 export function cumsum (ctx, array) {
     return Array.from(d3array.cumsum(array));

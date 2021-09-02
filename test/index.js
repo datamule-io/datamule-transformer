@@ -917,6 +917,17 @@ describe("Array methods", function() {
         })
     });
 
+    describe("sort desc objects", function () {
+        it('should sort the array descending by the specified field', function () {
+            const rules = [['sort', 'desc', 'age']];
+            const data = [{name: 'John', age: 43}, {name: 'Benny', age: 58}, {name: 'Dina', age: 27}]
+            expect(
+                dmt.applyRules(data, rules)).to.eql(
+                [{name: 'Benny', age: 58}, {name: 'John', age: 43}, {name: 'Dina', age: 27}]
+            );
+        })
+    });
+
     describe("concat", function () {
         it('should concatenate all members of an array into one array. members can be arrays or scalars', function () {
             const rules = ['concat'];
@@ -926,5 +937,38 @@ describe("Array methods", function() {
                 [3, 6, 4, 8, 10, 7, 2, 3, 11, 22]
             );
         })
+    });
+
+    // describe("difference", function () {
+    //     it('should return an arrays with values that appear in one array only', function () {
+    //         const rules = ['difference'];
+    //         const data = [[0, 1, 2, 0], [1]]
+    //         expect(
+    //             dmt.applyRules(data, rules)).to.eql(
+    //             [0,2]
+    //         );
+    //     });
+    // });
+
+    describe("union", function () {
+        it('should return an arrays with unique values from all arrays', function () {
+            const rules = ['union'];
+            const data = [[0, 2, 1, 0], [1, 3]]
+            expect(
+                dmt.applyRules(data, rules)).to.eql(
+                [0, 2, 1, 3]
+            );
+        });
+    });
+
+    describe("intersection", function () {
+        it('should return an arrays with the intersection of all arrays', function () {
+            const rules = ['intersection'];
+            const data = [[0, 2, 1, 0], [1, 3]]
+            expect(
+                dmt.applyRules(data, rules)).to.eql(
+                [1]
+            );
+        });
     });
 });

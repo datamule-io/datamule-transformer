@@ -180,6 +180,19 @@ dmt.applyRules(numbers, ["max"])
 #### trunc
 #### toFixed
 #### fsum
+#### union
+returns an array that is the union of all input arrays, with each item appearing only once.
+```javascript
+dmt.applyRules([[0, 2, 1, 0], [1, 3]], ["union"]);
+// [0, 2, 1, 3];
+```
+#### intersection
+returns an array containing every distinct value that appears in all of the given arrays. The order of values in the returned array is based on their first occurrence in the given arrays.
+```javascript
+dmt.applyRules([[0, 2, 1, 0], [1, 3]], ["intersection"]);
+// [1];
+```
+
 #### concat
 Concatenates multiple arrays or other scalars into one array
 ```javascript

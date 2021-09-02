@@ -135,7 +135,10 @@ const methods = {
     timeFormat: {m: datetime.timeFormat, minParams:1},
     concat: {m:array.concat, minParams:0},
     sort: {m:array.sort, minParams:0},
-    reverse: {m:array.reverse, minParams:0}
+    reverse: {m:array.reverse, minParams:0},
+    // difference: {m:array.difference, minParams:0}, //removed because it's a difference of the first array from all the others. We need only methods that operate on all input arrays equally. 
+    union: {m:array.union, minParams:0},
+    intersection: {m:array.intersection, minParams:0}
 }
 
 const fetchers = {
